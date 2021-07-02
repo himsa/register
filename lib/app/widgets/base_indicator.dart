@@ -7,9 +7,6 @@ class BaseIndicator extends StatelessWidget {
   /// The child to be placed within the indicator.
   final Widget? child;
 
-  /// Action to be taken when this indictor is pressed.
-  final Function? onPressed;
-
   /// Color of this indicator when it is not selected.
   final Color? color;
 
@@ -34,7 +31,6 @@ class BaseIndicator extends StatelessWidget {
   BaseIndicator({
     this.isSelected = false,
     this.child,
-    this.onPressed,
     this.color,
     this.activeColor,
     this.activeBorderColor,
@@ -57,20 +53,17 @@ class BaseIndicator extends StatelessWidget {
             : null,
         shape: BoxShape.circle,
       ),
-      child: InkWell(
-        onTap: onPressed as void Function()?,
-        child: Container(
-          height: radius * 2,
-          width: radius * 2,
-          padding: EdgeInsets.all(padding),
-          decoration: BoxDecoration(
-            color:
-                isSelected ? activeColor ?? Colors.green : color ?? Colors.grey,
-            shape: BoxShape.circle,
-          ),
-          child: Center(
-            child: child,
-          ),
+      child: Container(
+        height: radius * 2,
+        width: radius * 2,
+        padding: EdgeInsets.all(padding),
+        decoration: BoxDecoration(
+          color:
+              isSelected ? activeColor ?? Colors.green : color ?? Colors.grey,
+          shape: BoxShape.circle,
+        ),
+        child: Center(
+          child: child,
         ),
       ),
     );

@@ -1,13 +1,9 @@
 import 'package:flutter/material.dart';
-
-import 'base_stepper.dart';
+import 'package:register/app/widgets/base_indicator.dart';
 
 class NumberStepper extends StatelessWidget {
   /// Each number defines a step. Hence, total count of numbers determines the total number of steps.
   final List<int>? numbers;
-
-  /// Determines what should happen when a step is reached. This callback provides the __index__ of the step that was reached.
-  final OnStepReached? onStepReached;
 
   /// The style applied to numbers except the `fontSize` which is calculated automatically.
   final TextStyle numberStyle;
@@ -57,7 +53,6 @@ class NumberStepper extends StatelessWidget {
   /// Creates a NumberStepper widget.
   NumberStepper({
     this.numbers,
-    this.onStepReached,
     this.numberStyle = const TextStyle(color: Colors.black),
     this.stepColor,
     this.stepPadding = 0.0,
@@ -77,27 +72,50 @@ class NumberStepper extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BaseStepper(
-      children: _numbersWrappedInText(),
-      onStepReached: onStepReached,
-      stepColor: stepColor,
-      activeStepColor: activeStepColor,
-      activeStepBorderColor: activeStepBorderColor,
-      activeStepBorderWidth: activeStepBorderWidth,
-      lineColor: lineColor,
-      lineLength: lineLength,
-      stepRadius: stepRadius,
-      stepReachedAnimationEffect: stepReachedAnimationEffect,
-      stepReachedAnimationDuration: stepReachedAnimationDuration,
-      steppingEnabled: steppingEnabled,
-      padding: stepPadding,
-      scrollingDisabled: scrollingDisabled,
-      activeStep: activeStep,
-      alignment: alignment,
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: _buildSteps(),
     );
   }
 
-  /// Wraps the integer numbers in Text widget. User style is also applied except the `fontSize` which is calculated automatically.
+  /// Builds the stepper steps.
+  List<Widget> _buildSteps() {
+    return List.generate(
+      _numbersWrappedInText().length,
+      (index) {
+        return Row(
+          children: <Widget>[
+            _customizedIndicator(index),
+            _customLine(index),
+          ],
+        );
+      },
+    );
+  }
+
+  Widget _customizedIndicator(int index) {
+    return BaseIndicator(
+      child: _numbersWrappedInText()[index],
+      isSelected: index < activeStep,
+      color: stepColor,
+      activeColor: activeStepColor,
+      activeBorderColor: activeStepBorderColor,
+      radius: stepRadius,
+      padding: stepPadding,
+      activeBorderWidth: activeStepBorderWidth,
+    );
+  }
+
+  Widget _customLine(int index) {
+    return index < _numbersWrappedInText().length - 1
+        ? Container(
+            width: lineLength,
+            height: 3.0,
+            color: Colors.black,
+          )
+        : Container();
+  }
+
   List<Widget> _numbersWrappedInText() {
     return List.generate(numbers!.length, (index) {
       return FittedBox(

@@ -17,14 +17,17 @@ class HomeView extends GetView<HomeController> {
             child: NumberStepper(
               activeStep: controller.currentStep.value,
               numbers: controller.numbers,
-              onStepReached: (index) => controller.tapped(index),
               stepColor: Colors.white,
             ),
           ),
           preferredSize: Size.fromHeight(100.0),
         ),
-        body: Container(
-          child: controller.pages[controller.currentStep.value],
+        body: Column(
+          children: [
+            Expanded(
+              child: controller.pages[controller.currentStep.value],
+            ),
+          ],
         ),
       ),
     );

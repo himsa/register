@@ -20,10 +20,8 @@ class HomeController extends GetxController {
   @override
   void onClose() {}
 
-  tapped(int step) => currentStep.value = step;
-
   continued() {
-    currentStep.value < 2 ? currentStep.value++ : null;
+    currentStep.value < 3 ? currentStep.value++ : null;
   }
 
   cancel() {
