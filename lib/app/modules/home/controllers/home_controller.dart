@@ -1,9 +1,12 @@
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:register/app/modules/email/views/email_view.dart';
 
 class HomeController extends GetxController {
-  //TODO: Implement HomeController
+  final currentStep = 0.obs;
+  final numbers = [1, 2, 3, 4].obs;
+  final pages = [EmailView(), Container(), Container(), Container()].obs;
 
-  final count = 0.obs;
   @override
   void onInit() {
     super.onInit();
@@ -16,5 +19,14 @@ class HomeController extends GetxController {
 
   @override
   void onClose() {}
-  void increment() => count.value++;
+
+  tapped(int step) => currentStep.value = step;
+
+  continued() {
+    currentStep.value < 2 ? currentStep.value++ : null;
+  }
+
+  cancel() {
+    currentStep.value > 0 ? currentStep.value-- : null;
+  }
 }
