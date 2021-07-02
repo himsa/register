@@ -43,6 +43,10 @@ class EmailView extends GetView<EmailController> {
                           ),
                         ],
                       ),
+                      ElevatedButton(
+                        onPressed: () => controller.continued(),
+                        child: Text('Next'),
+                      ),
                     ],
                   ),
                 ),

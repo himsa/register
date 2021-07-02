@@ -1,9 +1,8 @@
 import 'package:get/get.dart';
+import 'package:register/app/modules/home/controllers/home_controller.dart';
 
 class EmailController extends GetxController {
-  //TODO: Implement EmailController
-
-  final count = 0.obs;
+  final homeController = Get.find<HomeController>();
   @override
   void onInit() {
     super.onInit();
@@ -16,5 +15,9 @@ class EmailController extends GetxController {
 
   @override
   void onClose() {}
-  void increment() => count.value++;
+  continued() {
+    homeController.currentStep.value < 3
+        ? homeController.currentStep.value++
+        : null;
+  }
 }
