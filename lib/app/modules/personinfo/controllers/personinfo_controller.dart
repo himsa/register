@@ -1,9 +1,13 @@
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:register/app/modules/home/controllers/home_controller.dart';
 
 class PersoninfoController extends GetxController {
-  //TODO: Implement PersoninfoController
+  final selectedGoal = '- Choose Option -'.obs;
+  final selectedIncome = "- Choose Option -".obs;
+  final selectedExpense = "- Choose Option -".obs;
+  final listType = <String>['Option First', 'Option Second', 'Option Third'];
 
-  final count = 0.obs;
   @override
   void onInit() {
     super.onInit();
@@ -16,5 +20,18 @@ class PersoninfoController extends GetxController {
 
   @override
   void onClose() {}
-  void increment() => count.value++;
+
+  void setSelectedGoal(String value) {
+    selectedGoal.value = value;
+  }
+
+  void setSelectedIncome(String value) {
+    selectedIncome.value = value;
+  }
+
+  void setSelectedExpense(String value) {
+    selectedExpense.value = value;
+  }
+
+  continued() => Get.find<HomeController>().continued();
 }
