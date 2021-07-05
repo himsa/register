@@ -50,22 +50,52 @@ class PasswordView extends GetView<PasswordController> {
                       ),
                       margin: EdgeInsets.all(10.0),
                       padding: EdgeInsets.all(5.0),
-                      child: TextFormField(
-                        decoration: InputDecoration(
-                          suffixIcon: Icon(Icons.visibility),
-                          hintText: 'Create Password',
-                          border: InputBorder.none,
+                      child: Obx(
+                        () => TextFormField(
+                          obscureText: !controller.visible.value,
+                          decoration: InputDecoration(
+                            suffixIcon: IconButton(
+                              icon: controller.visible.value
+                                  ? Icon(Icons.visibility_off)
+                                  : Icon(Icons.visibility),
+                              onPressed: () => controller.passwordVisible(),
+                            ),
+                            hintText: 'Create Password',
+                            border: InputBorder.none,
+                          ),
+                          onChanged: (password) =>
+                              controller.isPasswordValidated(password),
                         ),
-                        onChanged: (password) =>
-                            controller.isPasswordCompliant(password),
                       ),
                     ),
                   ),
                   SizedBox(
                     height: 20.0,
                   ),
+                  Row(
+                    children: [
+                      Text(
+                        'Complexity : ',
+                        style: Theme.of(context).textTheme.subtitle1?.apply(
+                              color: Colors.white,
+                            ),
+                      ),
+                      Obx(
+                        () => Text(
+                          controller.complexity.value,
+                          style: Theme.of(context).textTheme.subtitle1?.apply(
+                                color: Color(controller.color.value),
+                              ),
+                        ),
+                      ),
+                    ],
+                  ),
+                  SizedBox(
+                    height: 20.0,
+                  ),
                   Obx(
                     () => Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
                         PasswordValidator().layout(
                           context,
