@@ -2,17 +2,25 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 
-class ScheduleController extends GetxController {
+class ScheduleController extends GetxController
+    with SingleGetTickerProviderMixin {
   final selectedDate = DateTime.now().obs;
   final selectedTime = TimeOfDay.now().obs;
   final textEditingController = TextEditingController().obs;
   final textEditingControllerTime = TextEditingController().obs;
+  late AnimationController animationController;
 
   @override
   void onInit() {
     super.onInit();
     textEditingController.value.text = '- Choose Date -';
     textEditingControllerTime.value.text = '- Choose Time -';
+    animationController = AnimationController(
+      duration: Duration(milliseconds: 500),
+      vsync: this,
+    )
+      ..forward()
+      ..repeat(reverse: true);
   }
 
   @override
@@ -21,7 +29,9 @@ class ScheduleController extends GetxController {
   }
 
   @override
-  void onClose() {}
+  void onClose() {
+    animationController.dispose();
+  }
 
   selectDate(BuildContext context) async {
     DateTime? newSelectedDate = await showDatePicker(

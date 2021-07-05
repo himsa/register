@@ -18,6 +18,44 @@ class ScheduleView extends GetView<ScheduleController> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
+                  Row(
+                    children: [
+                      Container(
+                        height: 70.0,
+                        width: 70.0,
+                        alignment: Alignment.center,
+                        child: AnimatedBuilder(
+                          animation: controller.animationController,
+                          builder: (context, child) {
+                            return Container(
+                              decoration: ShapeDecoration(
+                                color: Colors.white.withOpacity(0.5),
+                                shape: CircleBorder(),
+                              ),
+                              child: Padding(
+                                padding: EdgeInsets.all(
+                                  8.0 * controller.animationController.value,
+                                ),
+                                child: child,
+                              ),
+                            );
+                          },
+                          child: Container(
+                            padding: EdgeInsets.all(8.0),
+                            decoration: ShapeDecoration(
+                              color: Colors.white,
+                              shape: CircleBorder(),
+                            ),
+                            child: Icon(
+                              Icons.calendar_today,
+                              size: 24,
+                              color: Colors.blue,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
                   Text(
                     'Schedule Video Call',
                     style: Theme.of(context)
